@@ -2,7 +2,6 @@ package andreiene.springproj.msscbrewery.web.controller;
 
 import andreiene.springproj.msscbrewery.services.BeerService;
 import andreiene.springproj.msscbrewery.web.model.BeerDto;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +10,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.UUID;
 
+/**
+ * Created by jt on 2019-04-20.
+ */
 @Deprecated
 @RequestMapping("/api/v1/beer")
 @RestController
@@ -23,12 +25,14 @@ public class BeerController {
     }
 
     @GetMapping({"/{beerId}"})
-    public ResponseEntity<BeerDto> getBeer(@PathVariable("beerId") UUID beerId) {
+    public ResponseEntity<BeerDto> getBeer(@Valid @PathVariable("beerId") UUID beerId) {
+
         return new ResponseEntity<>(beerService.getBeerById(beerId), HttpStatus.OK);
     }
 
-    @PostMapping
+    @PostMapping // POST - create new beer
     public ResponseEntity handlePost(@Valid @RequestBody BeerDto beerDto) {
+
         BeerDto savedDto = beerService.saveNewBeer(beerDto);
 
         HttpHeaders headers = new HttpHeaders();
@@ -39,7 +43,7 @@ public class BeerController {
     }
 
     @PutMapping({"/{beerId}"})
-    public ResponseEntity handleUpdate(@PathVariable("beerId") UUID beerId,@Valid @RequestBody BeerDto beerDto) {
+    public ResponseEntity handleUpdate(@PathVariable("beerId") UUID beerId, @Valid @RequestBody BeerDto beerDto) {
 
         beerService.updateBeer(beerId, beerDto);
 
@@ -48,8 +52,8 @@ public class BeerController {
 
     @DeleteMapping({"/{beerId}"})
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteBeer(@PathVariable("beerId") UUID beerId){
+    public void deleteBeer(@PathVariable("beerId") UUID beerId) {
         beerService.deleteById(beerId);
-
     }
+
 }

@@ -1,15 +1,18 @@
 package andreiene.springproj.msscbrewery.web.controller;
 
 import andreiene.springproj.msscbrewery.services.CustomerService;
-import andreiene.springproj.msscbrewery.web.model.BeerDto;
 import andreiene.springproj.msscbrewery.web.model.CustomerDto;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
+@Validated
 @RequestMapping("/api/v1/customer")
 @RestController
 public class CustomerController {
@@ -22,12 +25,12 @@ public class CustomerController {
 
 
     @GetMapping({"/{customerId}"})
-    public ResponseEntity<CustomerDto> getCustomer(@PathVariable("customerId") UUID customerId) {
+    public ResponseEntity<CustomerDto> getCustomer(@NotNull @PathVariable("customerId") UUID customerId) {
         return new ResponseEntity<>(customerService.getCustomerById(customerId), HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity handlePost(@RequestBody CustomerDto customerDto) {
+    public ResponseEntity handlePost(@Valid @RequestBody CustomerDto customerDto) {
         CustomerDto savedDto = customerService.saveNewCustomer(customerDto);
 
         HttpHeaders headers = new HttpHeaders();
@@ -37,7 +40,7 @@ public class CustomerController {
     }
 
     @PutMapping({"/customerId"})
-    public ResponseEntity handleUpdate(@PathVariable("customerId") UUID customerId, @RequestBody CustomerDto customerDto) {
+    public ResponseEntity handleUpdate(@PathVariable("customerId") UUID customerId, @Valid @RequestBody CustomerDto customerDto) {
 
         customerService.updateCustomer(customerId, customerDto);
 
