@@ -17,4 +17,5 @@ public class BeerDtoV2 {
     private String beerName;
     private BeerStyleEnum beerStyle;
     private Long upc;
+
 }
