@@ -1,6 +1,7 @@
 package andreiene.springproj.msscbrewery.services;
 
 import andreiene.springproj.msscbrewery.web.model.BeerDto;
+import andreiene.springproj.msscbrewery.web.model.v2.BeerStyleEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +14,7 @@ public class BeerServiceImpl implements BeerService {
     public BeerDto getBeerById(UUID beerId) {
         return BeerDto.builder().id(UUID.randomUUID())
                 .beerName("Galaxy Cat")
-                .beerStyle("Pale Ale")
+                .beerStyle(BeerStyleEnum.IPA)
                 .build();
     }
 

@@ -3,6 +3,7 @@ package andreiene.springproj.msscbrewery;
 import andreiene.springproj.msscbrewery.services.BeerService;
 import andreiene.springproj.msscbrewery.web.controller.BeerController;
 import andreiene.springproj.msscbrewery.web.model.BeerDto;
+import andreiene.springproj.msscbrewery.web.model.v2.BeerStyleEnum;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
@@ -43,7 +44,7 @@ public class BeerControllerTest {
     public void setUp() {
         validBeer = BeerDto.builder().id(UUID.randomUUID())
                 .beerName("Beer1")
-                .beerStyle("PALE_ALE")
+                .beerStyle(BeerStyleEnum.IPA)
                 .upc(123456789012L)
                 .build();
     }
