@@ -4,9 +4,10 @@ import andreiene.springproj.msscbrewery.domain.Beer;
 import andreiene.springproj.msscbrewery.web.model.BeerDto;
 import org.mapstruct.Mapper;
 
-@Mapper
+@Mapper(uses = {DateMapper.class})
 public interface BeerMapper {
 
     BeerDto beerToBeerDto(Beer beer);
-    Beer beerDtoToBeer(BeerDto beerDto);
+
+    Beer beerDtoToBeer(BeerDto dto);
 }
